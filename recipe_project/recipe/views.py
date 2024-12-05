@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RecipeForm
 from .models import Recipe
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -41,3 +43,21 @@ def update_recipe(request, recipe_id):
     else:
         form = RecipeForm(instance=recipe)
     return render(request, 'recipe/update_recipe.html', {'form': form})
+
+
+# This function retrieves a specific recipe from the database using the `recipe_id` parameter.
+# It then deletes the recipe using the `delete()` method and adds a success message to notify the user.
+# After the recipe is deleted, the user is redirected to the recipe list page ('list_recipes').
+def delete_recipe(request, recipe_id):
+    try:
+        # Try to get the recipe by its ID
+        recipe = Recipe.objects.get(pk=recipe_id)
+        # If found, delete the recipe
+        recipe.delete()
+        messages.success(request, 'Recipe deleted successfully.')
+    except ObjectDoesNotExist:
+        # If the recipe does not exist, show an error message
+        messages.error(request, 'Recipe not found.')
+    
+    # Redirect back to the recipe list page
+    return redirect('list_recipes')

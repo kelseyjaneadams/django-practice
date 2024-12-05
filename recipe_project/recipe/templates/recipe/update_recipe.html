@@ -1,8 +1,21 @@
 {% extends 'recipe/base.html' %}
+
 {% block content %}
 <h2>Update Recipe</h2>
+
+<!-- Display success or error messages -->
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
 <form method="POST">
-  {% csrf_token %} {{ form.as_p }}
+  {% csrf_token %}
+  {{ form.as_p }}
   <button type="submit">Update</button>
 </form>
 {% endblock %}
+
