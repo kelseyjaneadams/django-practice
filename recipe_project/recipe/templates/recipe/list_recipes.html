@@ -3,9 +3,16 @@
 <h2>Recipe List</h2>
 <ul>
   {% for recipe in recipes %}
-  <li>{{ recipe.name }}</li>
+    <li>
+      {{ recipe.name }}
+      <!-- Add a delete button for each recipe -->
+      <form method="POST" action="{% url 'delete_recipe' recipe.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+      </form>
+    </li>
   {% empty %}
-  <li>No recipes found.</li>
+    <li>No recipes found.</li>
   {% endfor %}
 </ul>
 {% endblock %}

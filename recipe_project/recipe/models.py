@@ -8,7 +8,7 @@ from django.db import models
 # __str__(self): A method that returns the recipe's name when the object is printed or displayed.
 # The CharField type is used for shorter text fields with a maximum length, while TextField is suitable for longer text content without predefined limits.
 class Recipe(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True) # This ensures the name is unique
     ingredients = models.TextField()
     instructions = models.TextField()
 

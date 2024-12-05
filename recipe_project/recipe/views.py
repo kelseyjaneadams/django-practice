@@ -1,10 +1,13 @@
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from .forms import RecipeForm
 from .models import Recipe
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 
+
 # Create your views here.
+
 
 # The add_recipe function handles the addition of a recipe. 
 # If a POST request is received, a new form instance is created with the submitted data. 
@@ -14,10 +17,23 @@ def add_recipe(request):
     if request.method == 'POST':
         form = RecipeForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('list_recipes')
+            try:
+                # Check if a recipe with the same name already exists
+                name = form.cleaned_data['name']
+                if Recipe.objects.filter(name=name).exists():
+                    messages.error(request, f"A recipe with the name '{name}' already exists!")
+                    return redirect('add_recipe')  # Redirect to the add recipe page again
+                else:
+                    form.save()  # Save the new recipe
+                    messages.success(request, "Recipe added successfully!")
+                    return redirect('list_recipes')  # Redirect to the recipe list page
+            except IntegrityError:
+                # In case there are other database integrity issues
+                messages.error(request, "An error occurred while adding the recipe. Please try again.")
+                return redirect('add_recipe')  # Redirect to the add recipe page again
     else:
         form = RecipeForm()
+    
     return render(request, 'recipe/add_recipe.html', {'form': form})
 
 
