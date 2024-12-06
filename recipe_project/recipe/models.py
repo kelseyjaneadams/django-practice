@@ -12,5 +12,9 @@ class Recipe(models.Model):
     ingredients = models.TextField()
     instructions = models.TextField()
 
+    # creates the index on the specified fields when the corresponding database table is generated
+    class Meta:
+        indexes = [models.Index(fields=['name', 'ingredients','instructions'])]
+
     def __str__(self):
         return self.name

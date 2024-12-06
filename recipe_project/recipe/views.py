@@ -77,3 +77,14 @@ def delete_recipe(request, recipe_id):
     
     # Redirect back to the recipe list page
     return redirect('list_recipes')
+
+
+# This function handles the search for recipes.
+# It retrieves the search query from the GET request parameters using 'q'.
+# The recipes are filtered using the 'name' field with a case-insensitive match (`icontains`).
+# It then renders the 'recipe/search_recipes.html' template, 
+# passing the filtered recipes and the search query to the template for display.
+def search_recipes(request):
+    query = request.GET.get('q')
+    recipes = Recipe.objects.filter(name__icontains=query)
+    return render(request, 'recipe/search_recipes.html', {'recipes': recipes, 'query': query})

@@ -1,0 +1,11 @@
+{% extends 'recipe/base.html' %}
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>  <!-- Display the search query in the heading -->
+<ul>
+  {% for recipe in recipes %}
+  <li>{{ recipe.name }}</li>  <!-- Display each recipe's name in a list item -->
+  {% empty %}
+  <li>No recipes found.</li>  <!-- Display this message if no recipes match the search -->
+  {% endfor %}
+</ul>
+{% endblock %}
