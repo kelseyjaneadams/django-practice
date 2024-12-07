@@ -15,7 +15,12 @@
         <div class="col-md-4">
             <!-- This creates a column in the grid layout. 'col-md-4' means the column will take up 4 out of 12 parts of the row on medium-sized devices (e.g., tablets). -->
             <div class="card mb-2">
+                <!-- Checking if a project contains an image. If a project image exists, then you load the image URL and show the image to the visitor. -->
+                {% if project.image %}
+                <img class="card-img-top" src="{{ project.image.url }}">
+                {% endif %}
                 <!-- Creates a Bootstrap card. The class 'mb-2' adds a small margin-bottom to separate the cards. -->
+            
                 <div class="card-body">
                     <!-- The card's content goes inside this container. -->
                     
