@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+<!-- This extends the "base.html" template, meaning the content here will be inserted into the "page_content" block of the base template. -->
+
+{% block page_content %}
+<!-- This marks the content block that will be inserted into the base template. -->
+
+<h1>{{ project.title }}</h1>
+<!-- Displays the title of the current project. The project object is passed from the view, and the title is displayed dynamically using the {{ project.title }} variable. -->
+
+<div class="row">
+    <!-- Creates a Bootstrap grid row for layout. It ensures that content is aligned and responsive. -->
+    
+    <div class="col-md-4">
+        <!-- Creates a Bootstrap column that will span 4 out of 12 parts of the row (on medium-sized devices or larger). The content inside will occupy one-third of the row. -->
+
+        <h5>About the project:</h5>
+        <!-- Displays a subheading for the project's description. -->
+        
+        <p>{{ project.description }}</p>
+        <!-- Displays the project's description dynamically. This value is pulled from the `project.description` field. -->
+        
+        <br>
+        <!-- Adds a line break between sections. -->
+
+        <h5>Technology used:</h5>
+        <!-- Displays a subheading for the technology used in the project. -->
+
+        <p>{{ project.technology }}</p>
+        <!-- Displays the technology used for the project dynamically. This value is pulled from the `project.technology` field. -->
+    </div>
+</div>
+
+{% endblock page_content %}
+<!-- This ends the page content block, which will be inserted into the "base.html" template. -->

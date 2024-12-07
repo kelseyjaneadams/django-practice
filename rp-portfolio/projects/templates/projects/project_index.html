@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<!-- This block contains the content for the page and is inserted into the base template. -->
+
+<h1>Projects</h1>
+<!-- Displays the title "Projects" on the page. -->
+
+<div class="row">
+    <!-- Creates a Bootstrap grid row to contain project cards. Each project will be displayed in its own column. -->
+    
+    {% for project in projects %}
+        <!-- Loops through all projects passed in the context. Each project is displayed inside a Bootstrap card. -->
+        
+        <div class="col-md-4">
+            <!-- This creates a column in the grid layout. 'col-md-4' means the column will take up 4 out of 12 parts of the row on medium-sized devices (e.g., tablets). -->
+            <div class="card mb-2">
+                <!-- Creates a Bootstrap card. The class 'mb-2' adds a small margin-bottom to separate the cards. -->
+                <div class="card-body">
+                    <!-- The card's content goes inside this container. -->
+                    
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <!-- Displays the project's title inside the card as a heading. -->
+                    
+                    <p class="card-text">{{ project.description }}</p>
+                    <!-- Displays the project's description inside the card. -->
+                    
+                    <a href="{% url 'project_detail' project.pk %}"
+                       class="btn btn-primary">
+                        Read More
+                    </a>
+                    <!-- This creates a button that links to the detailed view of the project. 'btn btn-primary' applies Bootstrap's primary button styling. -->
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
